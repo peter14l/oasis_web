@@ -38,6 +38,14 @@ const Footer = () => {
         </div>
 
         <div className="col-links">
+          <h4 style={{ marginBottom: '1.25rem', fontSize: '1rem' }}>Downloads</h4>
+          <ul style={{ listStyle: 'none', display: 'flex', flexDirection: 'column', gap: '0.75rem', color: '#94a3b8', fontSize: '0.9rem' }}>
+            <li><a href="/windows/oasis.msix" style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>Windows (MSIX)</a></li>
+            <li><a href="/apk/oasis-arm64-v8a-release.apk" style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>Android (APK)</a></li>
+          </ul>
+        </div>
+
+        <div className="col-links">
           <h4 style={{ marginBottom: '1.25rem', fontSize: '1rem' }}>Support</h4>
           <ul style={{ listStyle: 'none', display: 'flex', flexDirection: 'column', gap: '0.75rem', color: '#94a3b8', fontSize: '0.9rem' }}>
             <li><a href="mailto:support@oasis-web-red.vercel.app">Contact Us</a></li>
