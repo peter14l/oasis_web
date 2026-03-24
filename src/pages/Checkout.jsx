@@ -102,7 +102,7 @@ const Checkout = () => {
               <div className="glass" style={{ padding: '2rem', borderRadius: '24px', marginBottom: '2rem' }}>
                 <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1.5rem' }}>
                   <div>
-                    <h3 style={{ fontSize: '1.25rem', fontWeight: 700 }}>Morrow {planName}</h3>
+                    <h3 style={{ fontSize: '1.25rem', fontWeight: 700 }}>Oasis {planName}</h3>
                     <p style={{ color: '#94a3b8', fontSize: '0.9rem' }}>Monthly billing</p>
                   </div>
                   <div style={{ textAlign: 'right' }}>

@@ -77,7 +77,7 @@ const LoginModal = ({ isOpen, onClose }) => {
             </button>
 
             <h2 style={{ fontSize: '1.75rem', fontWeight: 800, marginBottom: '0.5rem' }}>
-              {mode === 'login' ? 'Welcome Back' : 'Join Morrow'}
+              {mode === 'login' ? 'Welcome Back' : 'Join Oasis'}
             </h2>
             <p style={{ color: '#94a3b8', fontSize: '0.9rem', marginBottom: '2rem' }}>
               {mode === 'login' ? 'Login to manage your subscription.' : 'Create an account to get started.'}

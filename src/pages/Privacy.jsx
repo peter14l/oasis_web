@@ -24,7 +24,7 @@ const Privacy = () => {
                         <div style={{ display: 'flex', flexDirection: 'column', gap: '3rem' }}>
                             <Section title="1. Our Commitment">
                                 <p>
-                                    At Morrow, privacy is not an afterthought—it's the core of our architecture. 
+                                    At Oasis, privacy is not an afterthought—it's the core of our architecture. 
                                     We believe that your digital moments should remain yours alone. Our platform 
                                     is built on the principle of data minimization and end-to-end security.
                                 </p>
@@ -44,12 +44,12 @@ const Privacy = () => {
 
                             <Section title="3. End-to-End Encryption">
                                 <p>
-                                    All personal messages and media sent through Morrow are encrypted using the 
+                                    All personal messages and media sent through Oasis are encrypted using the 
                                     Signal Protocol. This means only you and the intended recipient have the 
                                     cryptographic keys to decrypt the content. 
                                 </p>
                                 <p style={{ marginTop: '1rem', fontStyle: 'italic', color: '#3b82f6' }}>
-                                    Morrow Inc. has zero technical ability to read your messages or view your media.
+                                    Oasis Inc. has zero technical ability to read your messages or view your media.
                                 </p>
                             </Section>
 

@@ -89,7 +89,7 @@ const Navbar = () => {
             WebkitBackgroundClip: 'text',
             WebkitTextFillColor: 'transparent',
             backgroundClip: 'text'
-          }}>MORROW</span>
+          }}>OASIS</span>
         </Link>
 
         {/* Desktop Nav */}

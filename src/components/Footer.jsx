@@ -16,7 +16,7 @@ const Footer = () => {
               WebkitBackgroundClip: 'text',
               WebkitTextFillColor: 'transparent',
               backgroundClip: 'text'
-            }}>MORROW</span>
+            }}>OASIS</span>
           </Link>
           <p style={{ marginTop: '1rem', color: '#94a3b8', fontSize: '0.9rem' }}>
             Built for privacy, powered by Signal Protocol. The social engine for meaningful moments.
@@ -77,7 +77,7 @@ const Footer = () => {
         </div>
       </div>
       <div className="container" style={{ marginTop: '4rem', paddingTop: '2rem', borderTop: '1px solid rgba(255,255,255,0.05)', textAlign: 'center', color: '#475569', fontSize: '0.8rem' }}>
-        <p>© 2026 Morrow Inc. All rights reserved.</p>
+        <p>© 2026 Oasis Inc. All rights reserved.</p>
       </div>
     </footer>
   );
