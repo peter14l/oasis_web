@@ -113,7 +113,22 @@ const Navbar = () => {
             <div style={{ display: 'flex', alignItems: 'center', gap: '1.5rem' }}>
               <button 
                 onClick={handleLogout} 
-                style={{ background: 'none', color: '#94a3b8', fontSize: '0.9rem', fontWeight: 600, display: 'flex', alignItems: 'center', gap: '0.5rem', padding: 0 }}
+                style={{ 
+                  background: 'transparent', 
+                  color: '#94a3b8', 
+                  fontSize: '0.9rem', 
+                  fontWeight: 600, 
+                  display: 'flex', 
+                  alignItems: 'center', 
+                  gap: '0.5rem', 
+                  padding: '0.5rem 0.75rem',
+                  borderRadius: '8px',
+                  border: 'none',
+                  cursor: 'pointer',
+                  outline: 'none'
+                }}
+                onMouseEnter={(e) => e.currentTarget.style.color = '#fff'}
+                onMouseLeave={(e) => e.currentTarget.style.color = '#94a3b8'}
               >
                 <LogOut size={16} /> Logout
               </button>
