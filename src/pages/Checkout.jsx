@@ -5,6 +5,7 @@ import { supabase } from '../supabaseClient';
 import { Shield, Check, Tag, ArrowLeft, Loader2, Globe } from 'lucide-react';
 import PayUPayment from '../components/PayUPayment';
 import PayPalPayment from '../components/PayPalPayment';
+import RazorpayPayment from '../components/RazorpayPayment';
 
 const Checkout = () => {
   const [searchParams] = useSearchParams();
@@ -23,27 +24,45 @@ const Checkout = () => {
   const [couponError, setCouponError] = useState(null);
 
   const basePrices = {
-    Plus: { USD: 4.99, INR: 149, EUR: 4.99, GBP: 4.49 },
-    Pro: { USD: 9.99, INR: 299, EUR: 9.99, GBP: 8.99 }
+    Pro: { USD: 4.99, INR: 149, EUR: 4.99, GBP: 4.49 }
   };
 
   const currencySymbols = { USD: '$', INR: '₹', EUR: '€', GBP: '£' };
 
-  const basePrice = basePrices[planName]?.[currency] || 9.99;
+  const basePrice = basePrices[planName]?.[currency] || 4.99;
   const [finalPrice, setFinalPrice] = useState(basePrice);
 
   useEffect(() => {
     // Determine country for payment method
+    // Fallback based on currency if fetch fails
+    const inferCountryFromCurrency = (curr) => {
+      if (curr === 'INR') return 'IN';
+      if (curr === 'GBP') return 'GB';
+      if (curr === 'EUR') return 'EU';
+      return 'US';
+    };
+
     fetch('https://ipapi.co/json/')
-      .then(res => res.json())
-      .then(data => {
-        setCountry(data.country_code);
+      .then(res => {
+        if (!res.ok) throw new Error('Network response was not ok');
+        return res.json();
       })
-      .catch(() => console.log('Country fetch failed'));
+      .then(data => {
+        if (data.country_code) {
+          setCountry(data.country_code);
+        } else {
+          setCountry(inferCountryFromCurrency(currency));
+        }
+      })
+      .catch(() => {
+        console.log('Country fetch failed, inferring from currency');
+        setCountry(inferCountryFromCurrency(currency));
+      });
 
     supabase.auth.getSession().then(({ data: { session } }) => {
-      if (!session && !userId) {
-        navigate('/login?redirect=checkout');
+      if (!session) {
+        const currentPath = window.location.pathname + window.location.search;
+        navigate(`/login?redirect=${encodeURIComponent(currentPath)}`);
       }
       setLoading(false);
     });
@@ -198,7 +217,7 @@ const Checkout = () => {
                 </div>
 
                 {country === 'IN' ? (
-                  <PayUPayment 
+                  <RazorpayPayment 
                     plan={planName} 
                     amount={finalPrice} 
                     currency={currency} 
