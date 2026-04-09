@@ -2,10 +2,17 @@ import { useEffect, useRef, useState } from 'react';
 import { supabase } from '../supabaseClient';
 import { Loader2 } from 'lucide-react';
 
-const PayPalPayment = ({ plan, amount, currency, onSuccess }) => {
-  const paypalRef = useRef();
+interface PayPalPaymentProps {
+  plan: string;
+  amount: number;
+  currency: string;
+  onSuccess: () => void;
+}
+
+const PayPalPayment = ({ plan, amount, currency, onSuccess }: PayPalPaymentProps) => {
+  const paypalRef = useRef<HTMLDivElement>(null);
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
+  const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
     let script;
@@ -54,7 +61,7 @@ const PayPalPayment = ({ plan, amount, currency, onSuccess }) => {
         }
 
         window.paypal.Buttons({
-          createOrder: (data, actions) => {
+          createOrder: (_data: unknown, actions: { order: { create: (options: unknown) => Promise<{ id: string }> } }) => {
             return actions.order.create({
               purchase_units: [
                 {
@@ -67,14 +74,14 @@ const PayPalPayment = ({ plan, amount, currency, onSuccess }) => {
               ],
             });
           },
-          onApprove: async (data, actions) => {
+          onApprove: async (_data: unknown, actions: { order: { capture: () => Promise<unknown> } }) => {
             try {
               const order = await actions.order.capture();
               
               // Verify with your backend/Supabase Edge Function
               const { error: verifyError } = await supabase.functions.invoke('paypal-verify', {
                 body: {
-                  orderId: data.orderID,
+                  orderId: (order as { id: string }).id,
                   plan,
                   amount,
                   currency
@@ -91,7 +98,7 @@ const PayPalPayment = ({ plan, amount, currency, onSuccess }) => {
               setError('Failed to capture payment.');
             }
           },
-          onError: (err) => {
+          onError: (err: Error) => {
             console.error('PayPal Error:', err);
             // Don't set error if it's just a currency mismatch that we can explain
             if (err.message?.includes('currency')) {
@@ -100,7 +107,7 @@ const PayPalPayment = ({ plan, amount, currency, onSuccess }) => {
               setError('An error occurred with PayPal.');
             }
           }
-        }).render(paypalRef.current).catch(err => {
+        }).render(paypalRef.current as unknown as string).catch(err => {
           console.warn('PayPal Render Error (likely due to remount):', err);
         });
       }

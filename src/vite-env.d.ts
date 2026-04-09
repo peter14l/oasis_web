@@ -5,7 +5,9 @@ declare global {
   interface Window {
     Razorpay: new (options: unknown) => { open: () => void };
     paypal?: {
-      Buttons: (options: unknown) => { render: (selector: string) => void };
+      Buttons: (options: unknown) => { render: (selector: string) => Promise<void> };
     };
   }
 }
+
+export {};
