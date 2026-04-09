@@ -10,6 +10,7 @@ export default function SignUp() {
   const [fullName, setFullName] = useState('');
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
+  const [success, setSuccess] = useState(null);
   const navigate = useNavigate();
 
   const handleSignUp = async (e) => {
@@ -28,7 +29,7 @@ export default function SignUp() {
         },
       });
       if (error) throw error;
-      alert('Check your email for the confirmation link!');
+      setSuccess('Check your email for the confirmation link!');
       navigate('/login');
     } catch (err) {
       setError(err.message);
@@ -71,6 +72,12 @@ export default function SignUp() {
         {error && (
           <div style={{ padding: '12px', borderRadius: '12px', background: 'rgba(239, 68, 68, 0.1)', border: '1px solid rgba(239, 68, 68, 0.2)', color: '#ef4444', fontSize: '0.85rem', marginBottom: '20px', textAlign: 'center' }}>
             {error}
+          </div>
+        )}
+
+        {success && (
+          <div style={{ padding: '12px', borderRadius: '12px', background: 'rgba(34, 197, 94, 0.1)', border: '1px solid rgba(34, 197, 94, 0.2)', color: '#22c55e', fontSize: '0.85rem', marginBottom: '20px', textAlign: 'center' }}>
+            {success}
           </div>
         )}
 
