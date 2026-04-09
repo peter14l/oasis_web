@@ -16,20 +16,34 @@ const Success = lazy(() => import('./pages/Success'));
 const SharedMoment = lazy(() => import('./pages/SharedMoment'));
 const Profile = lazy(() => import('./pages/Profile'));
 
-// Simple loading fallback component
+// Simple loading fallback component with Oasis branding
 function LoadingSpinner() {
   return (
     <div style={{ 
       minHeight: '100vh', 
       display: 'flex', 
+      flexDirection: 'column',
       alignItems: 'center', 
       justifyContent: 'center',
+      gap: '1.5rem',
       background: '#0a0a0a' 
     }}>
+      <span style={{ 
+        fontSize: '2rem', 
+        fontWeight: 900,
+        letterSpacing: '0.1em',
+        fontVariationSettings: "'wdth' 125",
+        background: 'linear-gradient(135deg, #D0BCFF 0%, #CCC2DC 50%, #EFB8C8 100%)',
+        WebkitBackgroundClip: 'text',
+        WebkitTextFillColor: 'transparent',
+        backgroundClip: 'text'
+      }}>
+        OASIS
+      </span>
       <div style={{
-        width: '40px',
-        height: '40px',
-        border: '3px solid rgba(255,255,255,0.1)',
+        width: '48px',
+        height: '48px',
+        border: '3px solid rgba(208, 188, 255, 0.2)',
         borderTopColor: '#D0BCFF',
         borderRadius: '50%',
         animation: 'spin 1s linear infinite'
