@@ -2,7 +2,14 @@ import { useState, useEffect } from 'react';
 import { supabase } from '../supabaseClient';
 import { Loader2 } from 'lucide-react';
 
-const RazorpayPayment = ({ plan, amount, currency, onSuccess }) => {
+interface RazorpayPaymentProps {
+  plan: string;
+  amount: number;
+  currency: string;
+  onSuccess: () => void;
+}
+
+const RazorpayPayment = ({ plan, amount, currency, onSuccess }: RazorpayPaymentProps) => {
   const [loading, setLoading] = useState(false);
   const [scriptLoaded, setScriptLoaded] = useState(false);
 
@@ -41,13 +48,14 @@ const RazorpayPayment = ({ plan, amount, currency, onSuccess }) => {
         name: 'Oasis',
         description: `Oasis ${plan} Subscription`,
         order_id: orderData.id,
-        handler: async (response) => {
+        handler: async (response: { razorpay_order_id: string; razorpay_payment_id: string; razorpay_signature: string }) => {
           // 2. Verify payment on server
           const { error: verifyError } = await supabase.functions.invoke('razorpay-verify', {
             body: {
               razorpay_order_id: response.razorpay_order_id,
               razorpay_payment_id: response.razorpay_payment_id,
-              razorpay_signature: response.razorpay_signature
+              razorpay_signature: response.razorpay_signature,
+              plan: plan
             }
           });
 
@@ -66,7 +74,7 @@ const RazorpayPayment = ({ plan, amount, currency, onSuccess }) => {
         },
       };
 
-      const rzp = new window.Razorpay(options);
+      const rzp = new (window as unknown as { Razorpay: new (opts: unknown) => { open: () => void } }).Razorpay(options);
       rzp.open();
     } catch (err) {
       console.error('Razorpay Error:', err);

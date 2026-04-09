@@ -1,5 +1,6 @@
+import React from 'react';
 import { Link } from 'react-router-dom';
-import { Twitter, Instagram, Github, Mail } from 'lucide-react';
+import { Twitter, Instagram, Github } from 'lucide-react';
 
 const Footer = () => {
   return (
@@ -27,17 +28,17 @@ const Footer = () => {
         <div className="col-links">
           <h4 style={{ marginBottom: '1.5rem', fontSize: '1.1rem', fontWeight: 700, color: 'var(--md-sys-color-on-surface)' }}>Product</h4>
           <ul style={{ listStyle: 'none', display: 'flex', flexDirection: 'column', gap: '1rem', color: 'var(--md-sys-color-on-surface-variant)', fontSize: '1rem' }}>
-            <li><Link to="/features" style={{ transition: 'color 0.2s' }} onMouseEnter={(e) => e.target.style.color = 'var(--md-sys-color-primary)'} onMouseLeave={(e) => e.target.style.color = 'inherit'}>Features</Link></li>
-            <li><Link to="/pricing" style={{ transition: 'color 0.2s' }} onMouseEnter={(e) => e.target.style.color = 'var(--md-sys-color-primary)'} onMouseLeave={(e) => e.target.style.color = 'inherit'}>Pricing</Link></li>
-            <li><Link to="/privacy" style={{ transition: 'color 0.2s' }} onMouseEnter={(e) => e.target.style.color = 'var(--md-sys-color-primary)'} onMouseLeave={(e) => e.target.style.color = 'inherit'}>Privacy Policy</Link></li>
+            <li><Link to="/features" style={{ transition: 'color 0.2s' }} onMouseEnter={(e: React.MouseEvent<HTMLAnchorElement>) => e.currentTarget.style.color = 'var(--md-sys-color-primary)'} onMouseLeave={(e: React.MouseEvent<HTMLAnchorElement>) => e.currentTarget.style.color = 'inherit'}>Features</Link></li>
+            <li><Link to="/pricing" style={{ transition: 'color 0.2s' }} onMouseEnter={(e: React.MouseEvent<HTMLAnchorElement>) => e.currentTarget.style.color = 'var(--md-sys-color-primary)'} onMouseLeave={(e: React.MouseEvent<HTMLAnchorElement>) => e.currentTarget.style.color = 'inherit'}>Pricing</Link></li>
+            <li><Link to="/privacy" style={{ transition: 'color 0.2s' }} onMouseEnter={(e: React.MouseEvent<HTMLAnchorElement>) => e.currentTarget.style.color = 'var(--md-sys-color-primary)'} onMouseLeave={(e: React.MouseEvent<HTMLAnchorElement>) => e.currentTarget.style.color = 'inherit'}>Privacy Policy</Link></li>
           </ul>
         </div>
 
         <div className="col-links">
           <h4 style={{ marginBottom: '1.5rem', fontSize: '1.1rem', fontWeight: 700, color: 'var(--md-sys-color-on-surface)' }}>Downloads</h4>
           <ul style={{ listStyle: 'none', display: 'flex', flexDirection: 'column', gap: '1rem', color: 'var(--md-sys-color-on-surface-variant)', fontSize: '1rem' }}>
-            <li><a href="/windows/oasis.msix" style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', transition: 'color 0.2s' }} onMouseEnter={(e) => e.target.style.color = 'var(--md-sys-color-primary)'} onMouseLeave={(e) => e.target.style.color = 'inherit'}>Windows (MSIX)</a></li>
-            <li><a href="/apk/oasis-arm64-v8a-release.apk" style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', transition: 'color 0.2s' }} onMouseEnter={(e) => e.target.style.color = 'var(--md-sys-color-primary)'} onMouseLeave={(e) => e.target.style.color = 'inherit'}>Android (APK)</a></li>
+            <li><a href="/windows/oasis.msix" style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', transition: 'color 0.2s' }} onMouseEnter={(e: React.MouseEvent<HTMLAnchorElement>) => e.currentTarget.style.color = 'var(--md-sys-color-primary)'} onMouseLeave={(e: React.MouseEvent<HTMLAnchorElement>) => e.currentTarget.style.color = 'inherit'}>Windows (MSIX)</a></li>
+            <li><a href="/apk/oasis-arm64-v8a-release.apk" style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', transition: 'color 0.2s' }} onMouseEnter={(e: React.MouseEvent<HTMLAnchorElement>) => e.currentTarget.style.color = 'var(--md-sys-color-primary)'} onMouseLeave={(e: React.MouseEvent<HTMLAnchorElement>) => e.currentTarget.style.color = 'inherit'}>Android (APK)</a></li>
           </ul>
         </div>
 
