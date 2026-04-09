@@ -28,12 +28,28 @@
 - Write tests for authentication flows
 - Write tests for payment integrations
 
+**Status:** In Progress
+**Plans:** 3 plans
+
+**Plan list:**
+- [ ] 02-01-PLAN.md — Install Vitest + @testing-library/react, configure test environment
+- [ ] 02-02-PLAN.md — Write tests for Login.jsx and SignUp.jsx (TDD)
+- [ ] 02-03-PLAN.md — Write tests for payment components (TDD)
+
 **Depends on:** Phase 1
 
 ### Phase 3: Quality Improvements
 - Add TypeScript for type safety
 - Implement Sentry error tracking
 - Add lazy loading for routes
+
+**Status:** In Progress
+**Plans:** 3 plans
+
+**Plan list:**
+- [ ] 03-01-PLAN.md — Add TypeScript dependencies and configuration
+- [ ] 03-02-PLAN.md — Install and configure Sentry error tracking
+- [ ] 03-03-PLAN.md — Convert files to TypeScript and implement lazy loading
 
 **Depends on:** Phase 2
 
