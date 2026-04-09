@@ -19,9 +19,39 @@ const Footer = () => {
             Built for privacy, powered by Signal Protocol. The social engine for meaningful moments.
           </p>
           <div className="social-links" style={{ display: 'flex', gap: '1.5rem', marginTop: '2rem' }}>
-            <Twitter size={24} style={{ color: 'var(--md-sys-color-on-surface-variant)', cursor: 'pointer' }} />
-            <Instagram size={24} style={{ color: 'var(--md-sys-color-on-surface-variant)', cursor: 'pointer' }} />
-            <Github size={24} style={{ color: 'var(--md-sys-color-on-surface-variant)', cursor: 'pointer' }} />
+            <a 
+              href="https://twitter.com/oasisapp" 
+              target="_blank" 
+              rel="noopener noreferrer"
+              onMouseEnter={(e) => { e.currentTarget.style.color = 'var(--md-sys-color-primary)'; }}
+              onMouseLeave={(e) => { e.currentTarget.style.color = 'var(--md-sys-color-on-surface-variant)'; }}
+              style={{ color: 'var(--md-sys-color-on-surface-variant)', cursor: 'pointer', display: 'flex' }}
+              aria-label="Twitter"
+            >
+              <Twitter size={24} />
+            </a>
+            <a 
+              href="https://instagram.com/oasisapp" 
+              target="_blank" 
+              rel="noopener noreferrer"
+              onMouseEnter={(e) => { e.currentTarget.style.color = 'var(--md-sys-color-primary)'; }}
+              onMouseLeave={(e) => { e.currentTarget.style.color = 'var(--md-sys-color-on-surface-variant)'; }}
+              style={{ color: 'var(--md-sys-color-on-surface-variant)', cursor: 'pointer', display: 'flex' }}
+              aria-label="Instagram"
+            >
+              <Instagram size={24} />
+            </a>
+            <a 
+              href="https://github.com/oasisapp" 
+              target="_blank" 
+              rel="noopener noreferrer"
+              onMouseEnter={(e) => { e.currentTarget.style.color = 'var(--md-sys-color-primary)'; }}
+              onMouseLeave={(e) => { e.currentTarget.style.color = 'var(--md-sys-color-on-surface-variant)'; }}
+              style={{ color: 'var(--md-sys-color-on-surface-variant)', cursor: 'pointer', display: 'flex' }}
+              aria-label="GitHub"
+            >
+              <Github size={24} />
+            </a>
           </div>
         </div>
 

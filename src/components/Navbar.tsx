@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Link, useLocation, useNavigate } from 'react-router-dom';
+import { NavLink, useNavigate } from 'react-router-dom';
 import { Menu, X, Download, User, LogOut, ChevronDown, Smartphone, Monitor } from 'lucide-react';
 import { supabase } from '../supabaseClient';
 import type { User as SupabaseUser } from '@supabase/supabase-js';
@@ -11,7 +11,6 @@ const Navbar = () => {
   const dropdownRef = useRef<HTMLDivElement>(null);
   const [scrolled, setScrolled] = useState(false);
   const [user, setUser] = useState<SupabaseUser | null>(null);
-  const location = useLocation();
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -54,7 +53,20 @@ const Navbar = () => {
   useEffect(() => {
     setIsOpen(false);
     setDownloadDropdownOpen(false);
-  }, [location]);
+  }, []);
+
+  // Escape key handler for mobile menu
+  useEffect(() => {
+    const handleEscape = (e: KeyboardEvent) => {
+      if (e.key === 'Escape' && isOpen) {
+        setIsOpen(false);
+      }
+    };
+    if (isOpen) {
+      document.addEventListener('keydown', handleEscape);
+    }
+    return () => document.removeEventListener('keydown', handleEscape);
+  }, [isOpen]);
 
   const navLinks = [
     { name: 'Features', path: '/features' },
@@ -85,25 +97,25 @@ const Navbar = () => {
       }}
     >
       <div className="container" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', width: '100%', maxWidth: '1400px' }}>
-        <Link to="/" className="logo" style={{ fontSize: '1.75rem', fontWeight: 900, letterSpacing: '-0.05em', display: 'flex', alignItems: 'center', gap: '0.5rem', zIndex: 101, fontVariationSettings: "'wdth' 125" }}>
+        <NavLink to="/" className="logo" style={{ fontSize: '1.75rem', fontWeight: 900, letterSpacing: '-0.05em', display: 'flex', alignItems: 'center', gap: '0.5rem', zIndex: 101, fontVariationSettings: "'wdth' 125" }}>
           <span className="text-gradient">OASIS</span>
-        </Link>
+        </NavLink>
 
         {/* Desktop Nav */}
         <div className="desktop-nav" style={{ display: 'flex', alignItems: 'center', gap: '2rem' }}>
           {navLinks.map((link) => (
-            <Link 
+            <NavLink 
               key={link.name} 
               to={link.path}
-              style={{ 
+              style={({ isActive }) => ({ 
                 fontSize: '1rem', 
                 fontWeight: 600, 
-                color: location.pathname === link.path ? 'var(--md-sys-color-primary)' : 'var(--md-sys-color-on-surface-variant)',
+                color: isActive ? 'var(--md-sys-color-primary)' : 'var(--md-sys-color-on-surface-variant)',
                 transition: 'color 0.3s'
-              }}
+              })}
             >
               {link.name}
-            </Link>
+            </NavLink>
           ))}
 
           {user ? (
@@ -126,22 +138,22 @@ const Navbar = () => {
               >
                 <LogOut size={16} /> Logout
               </button>
-              <Link to="/profile" style={{ color: 'var(--md-sys-color-primary)', display: 'flex', alignItems: 'center' }}>
-                <User size={24} />
-              </Link>
+                <NavLink to="/profile" style={{ color: 'var(--md-sys-color-primary)', display: 'flex', alignItems: 'center' }}>
+                  <User size={24} />
+                </NavLink>
             </div>
           ) : (
-            <Link 
+            <NavLink 
               to="/login"
-              style={{ 
+              style={({ isActive }) => ({ 
                 fontSize: '1rem', 
                 fontWeight: 600, 
-                color: 'var(--md-sys-color-on-surface-variant)',
+                color: isActive ? 'var(--md-sys-color-primary)' : 'var(--md-sys-color-on-surface-variant)',
                 transition: 'color 0.3s'
-              }}
+              })}
             >
               Login
-            </Link>
+            </NavLink>
           )}
 
           <div style={{ position: 'relative' }} ref={dropdownRef}>
@@ -218,6 +230,8 @@ const Navbar = () => {
           className="mobile-toggle" 
           style={{ display: 'none', background: 'none', color: 'var(--md-sys-color-on-background)', zIndex: 101, border: 'none', cursor: 'pointer' }} 
           onClick={() => setIsOpen(!isOpen)}
+          aria-label={isOpen ? 'Close menu' : 'Open menu'}
+          aria-expanded={isOpen}
         >
           {isOpen ? <X size={32} /> : <Menu size={32} />}
         </button>
@@ -230,6 +244,9 @@ const Navbar = () => {
             initial={{ opacity: 0, y: -20 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -20 }}
+            role="dialog"
+            aria-modal="true"
+            aria-label="Navigation menu"
             style={{
               position: 'fixed',
               top: 0,
@@ -246,13 +263,13 @@ const Navbar = () => {
             }}
           >
             {navLinks.map((link) => (
-              <Link 
+              <NavLink 
                 key={link.name} 
                 to={link.path}
-                style={{ fontSize: '2rem', fontWeight: 800, color: location.pathname === link.path ? 'var(--md-sys-color-primary)' : 'var(--md-sys-color-on-surface-variant)' }}
+                style={({ isActive }) => ({ fontSize: '2rem', fontWeight: 800, color: isActive ? 'var(--md-sys-color-primary)' : 'var(--md-sys-color-on-surface-variant)' })}
               >
                 {link.name}
-              </Link>
+              </NavLink>
             ))}
             <div style={{ display: 'flex', flexDirection: 'column', gap: '1.25rem', width: '85%', maxWidth: '320px' }}>
               <p style={{ color: 'var(--md-sys-color-on-surface-variant)', fontSize: '0.9rem', fontWeight: 700, textAlign: 'center', textTransform: 'uppercase', letterSpacing: '0.15em' }}>Download App</p>
