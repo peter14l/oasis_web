@@ -1,4 +1,5 @@
 import React from 'react';
+import * as Sentry from '@sentry/react';
 import { motion } from 'framer-motion';
 
 class ErrorBoundary extends React.Component {
@@ -12,6 +13,12 @@ class ErrorBoundary extends React.Component {
   }
 
   componentDidCatch(error, errorInfo) {
+    // Capture error to Sentry with component stack context
+    Sentry.captureException(error, {
+      extra: {
+        componentStack: errorInfo.componentStack,
+      },
+    });
     console.error('Error caught by boundary:', error, errorInfo.componentStack);
   }
 
