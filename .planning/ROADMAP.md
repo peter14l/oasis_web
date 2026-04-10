@@ -58,6 +58,14 @@
 - Polish UI components
 - Optimize bundle size
 
+**Status:** Planned
+**Plans:** 3 plans
+
+**Plan list:**
+- [ ] 04-01-PLAN.md — Fix navigation/routing issues (NavLink, Footer links)
+- [ ] 04-02-PLAN.md — Polish UI components (ErrorBoundary, LoadingSpinner)
+- [ ] 04-03-PLAN.md — Optimize bundle size (manual chunks)
+
 **Depends on:** Phase 3
 
 ### Phase 5: Production Readiness
@@ -65,6 +73,14 @@
 - CSP headers
 - Rate limiting
 - Deploy to production
+
+**Status:** In Progress
+**Plans:** 2 plans
+
+**Plan list:**
+- [x] 05-01-PLAN.md — Implement HTTPS enforcement and CSP headers
+- [x] 05-02-PLAN.md — Implement rate limiting
+- [ ] 05-03-PLAN.md — Deploy to production
 
 **Depends on:** Phase 4
 
