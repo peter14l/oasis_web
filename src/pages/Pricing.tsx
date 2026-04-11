@@ -58,29 +58,34 @@ export default function Pricing() {
   }, { scope: container });
 
   useEffect(() => {
-    fetch('https://ipapi.co/json/')
-      .then(res => res.json())
-      .then(data => {
-        const country = data.country_code;
-        const mapping = {
-          'IN': { currency: 'INR', symbol: '₹', pro: 149 },
-          'GB': { currency: 'GBP', symbol: '£', pro: 4.49 },
-          'EU': { currency: 'EUR', symbol: '€', pro: 4.99 },
-          'DE': { currency: 'EUR', symbol: '€', pro: 4.99 },
-          'FR': { currency: 'EUR', symbol: '€', pro: 4.99 },
-          'US': { currency: 'USD', symbol: '$', pro: 4.99 }
-        };
-        const config = mapping[country] || mapping['US'];
-        setPricing({
-          currency: config.currency,
-          symbol: config.symbol,
-          proPrice: config.pro,
-          country: country
+    if (window.location.hostname !== 'localhost' && window.location.hostname !== '127.0.0.1') {
+      fetch('https://ipapi.co/json/')
+        .then(res => {
+          if (!res.ok) throw new Error('Network response was not ok');
+          return res.json();
+        })
+        .then(data => {
+          const country = data.country_code;
+          const mapping = {
+            'IN': { currency: 'INR', symbol: '₹', pro: 149 },
+            'GB': { currency: 'GBP', symbol: '£', pro: 4.49 },
+            'EU': { currency: 'EUR', symbol: '€', pro: 4.99 },
+            'DE': { currency: 'EUR', symbol: '€', pro: 4.99 },
+            'FR': { currency: 'EUR', symbol: '€', pro: 4.99 },
+            'US': { currency: 'USD', symbol: '$', pro: 4.99 }
+          };
+          const config = mapping[country] || mapping['US'];
+          setPricing({
+            currency: config.currency,
+            symbol: config.symbol,
+            proPrice: config.pro,
+            country: country
+          });
+        })
+        .catch(() => {
+          console.log('Location fetch failed, using default pricing.');
         });
-      })
-      .catch(() => {
-        console.log('Location fetch failed, using default pricing.');
-      });
+    }
   }, []);
 
   return (

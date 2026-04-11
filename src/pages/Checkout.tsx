@@ -45,18 +45,24 @@ const Checkout = () => {
     setCountry(inferCountryFromCurrency(currency));
 
     // Try to get more accurate location, but fail silently (CORS often blocks this on localhost)
-    fetch('https://ipapi.co/json/')
-      .then(res => res.json())
-      .then(data => {
-        if (data.country_code) {
-          setCountry(data.country_code);
-        }
-      })
-      .catch(() => {
-        // Fallback already set above
-      });
+    if (window.location.hostname !== 'localhost' && window.location.hostname !== '127.0.0.1') {
+      fetch('https://ipapi.co/json/')
+        .then(res => {
+          if (!res.ok) throw new Error('Network response was not ok');
+          return res.json();
+        })
+        .then(data => {
+          if (data.country_code) {
+            setCountry(data.country_code);
+          }
+        })
+        .catch(() => {
+          // Fallback already set above
+        });
+    }
 
     supabase.auth.getSession().then(({ data: { session } }) => {
+      console.log('Checkout Page Loaded - Version: 2026-04-11-v2');
       if (!session) {
         const currentPath = window.location.pathname + window.location.search;
         navigate(`/login?redirect=${encodeURIComponent(currentPath)}`);
