@@ -50,7 +50,7 @@ const RazorpayPayment = ({ plan, amount, currency, onSuccess }: RazorpayPaymentP
         order_id: orderData.id,
         handler: async (response: { razorpay_order_id: string; razorpay_payment_id: string; razorpay_signature: string }) => {
           // 2. Verify payment on server
-          const { error: verifyError } = await supabase.functions.invoke('razorpay-verify', {
+          const { data: verifyData, error: verifyError } = await supabase.functions.invoke('razorpay-verify', {
             body: {
               razorpay_order_id: response.razorpay_order_id,
               razorpay_payment_id: response.razorpay_payment_id,
@@ -60,7 +60,10 @@ const RazorpayPayment = ({ plan, amount, currency, onSuccess }: RazorpayPaymentP
           });
 
           if (verifyError) {
-            alert('Payment verification failed.');
+            console.error('Verification Error:', verifyError);
+            alert(`Payment verification failed: ${verifyError.message || 'Unknown error'}`);
+          } else if (verifyData?.error) {
+            alert(`Payment verification failed: ${verifyData.error}`);
           } else {
             onSuccess();
           }

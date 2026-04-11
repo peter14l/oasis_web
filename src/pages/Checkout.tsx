@@ -24,7 +24,7 @@ const Checkout = () => {
   const [couponError, setCouponError] = useState(null);
 
   const basePrices = {
-    Pro: { USD: 4.99, INR: 149, EUR: 4.99, GBP: 4.49 }
+    Pro: { USD: 4.99, INR: 5, EUR: 4.99, GBP: 4.49 }
   };
 
   const currencySymbols = { USD: '$', INR: '₹', EUR: '€', GBP: '£' };
@@ -34,7 +34,6 @@ const Checkout = () => {
 
   useEffect(() => {
     // Determine country for payment method
-    // Fallback based on currency if fetch fails
     const inferCountryFromCurrency = (curr) => {
       if (curr === 'INR') return 'IN';
       if (curr === 'GBP') return 'GB';
@@ -42,21 +41,19 @@ const Checkout = () => {
       return 'US';
     };
 
+    // Set initial country from currency immediately
+    setCountry(inferCountryFromCurrency(currency));
+
+    // Try to get more accurate location, but fail silently (CORS often blocks this on localhost)
     fetch('https://ipapi.co/json/')
-      .then(res => {
-        if (!res.ok) throw new Error('Network response was not ok');
-        return res.json();
-      })
+      .then(res => res.json())
       .then(data => {
         if (data.country_code) {
           setCountry(data.country_code);
-        } else {
-          setCountry(inferCountryFromCurrency(currency));
         }
       })
       .catch(() => {
-        console.log('Country fetch failed, inferring from currency');
-        setCountry(inferCountryFromCurrency(currency));
+        // Fallback already set above
       });
 
     supabase.auth.getSession().then(({ data: { session } }) => {

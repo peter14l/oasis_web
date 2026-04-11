@@ -50,8 +50,11 @@ const Success = () => {
         </p>
 
         <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
-          <Link to="/profile" className="btn btn-primary" style={{ width: '100%', gap: '0.5rem' }}>
-            Go to Profile <ArrowRight size={18} />
+          <a href="oasis://profile" className="btn btn-primary" style={{ width: '100%', gap: '0.5rem' }}>
+            Open Oasis App <ArrowRight size={18} />
+          </a>
+          <Link to="/profile" className="btn btn-secondary" style={{ width: '100%', gap: '0.5rem' }}>
+            Go to Web Profile
           </Link>
           <Link to="/" style={{ color: 'var(--md-sys-color-on-surface-variant)', fontSize: '0.9rem', fontWeight: 600 }}>
             Return Home
