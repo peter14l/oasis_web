@@ -28,6 +28,11 @@ export default function middleware(req) {
   const url = new URL(req.url);
   const path = url.pathname;
 
+  // Bypass rate limiting for .well-known configuration files
+  if (path.startsWith('/.well-known/')) {
+    return;
+  }
+
   // Check if this is an auth endpoint
   const isAuthEndpoint = path.includes('/login') || path.includes('/signup') || path.includes('/auth');
 
@@ -66,6 +71,6 @@ export default function middleware(req) {
     );
   }
 
-  // Continue to next handler
-  return Response.next();
+  // Continue to next handler (standard Vercel/Edge middleware)
+  return;
 }

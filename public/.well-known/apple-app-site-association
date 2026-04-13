@@ -1,0 +1,16 @@
+{
+  "applinks": {
+    "apps": [],
+    "details": [
+      {
+        "appID": "TEAM_ID.com.example.morrowV2",
+        "paths": [
+          "/post/*",
+          "/ripples/*",
+          "/capsule/*",
+          "/circle/*"
+        ]
+      }
+    ]
+  }
+}
